@@ -23,3 +23,21 @@
 .payment_address, .payment_items, .payment_details{
     flex: 0.8;
 }
+.payment_details > form {
+    max-width: 400px;
+}
+/* .payment_priceContainer > h4 {
+    padding-bottom: 0px;
+} */
+.payment_priceContainer > button{
+    background: #f0c14b;
+    border: 1px solid;
+    margin-top: 10px;
+    /* padding-top: 1.5px; */
+    border-color: #a88734 #9c7e31 #846a29;
+    color: #111;
+    width: 100%;
+    border-radius: 2px;
+    height: 30px;
+    font-weight: bolder;
+}

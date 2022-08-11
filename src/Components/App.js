@@ -56,6 +56,7 @@ function App() {
             path="/checkout"
             element={
               <>
+                <Header />
                 <Checkout />
               </>
             }

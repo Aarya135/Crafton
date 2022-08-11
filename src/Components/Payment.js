@@ -8,7 +8,13 @@ import CurrencyFormat from "react-currency-format";
 import { getBasketTotal } from "../Reducer";
 import axios from "../axios";
 import { db } from "../Firebase";
-import { addDoc, collection } from "firebase/firestore";
+import {
+  getFirestore,
+  addDoc,
+  doc,
+  collection,
+  setDoc,
+} from "firebase/firestore";
 
 function Payment() {
   const [{ basket, user }, dispatch] = useStateValue();
@@ -47,28 +53,28 @@ function Payment() {
         },
       })
       .then(({ paymentIntent }) => {
-        // const docRef = await addDoc(collection(db, "users"),{
-
-        // })
-
-        // db.collection("users")
-        //   .doc(user?.uid)
-        //   .collection("orders")
-        //   .doc(paymentIntent.id)
-        //   .set({
-        //     basket: basket,
-        //     amount: paymentIntent.amount,
-        //     created: paymentIntent.created,
-        //   });
-
+        // console.log("1 We are reaching here!", paymentIntent);
+        const data = {
+          basket: basket,
+          amount: paymentIntent.amount,
+          created: paymentIntent.created,
+        };
+        const dbRef = doc(db, "users", user?.uid, "orders", paymentIntent.id);
+        setDoc(dbRef, data)
+          .then((docRef) => {
+            console.log("Document has been added successfully");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
         setSucceded(true);
         setError(null);
         setProcessing(false);
-
+        // console.log("2 We are reaching here!");
         dispatch({
           type: "EMPTY_BASKET",
         });
-
+        // console.log("3 We are reaching here!");
         navigate("/orders", { replace: true });
       });
   };
@@ -91,7 +97,7 @@ function Payment() {
           <div className="payment_address">
             <p>{user?.email}</p>
             <p>123 React Lane</p>
-            <p>Blah blah blah</p>
+            <p>California, US</p>
           </div>
         </div>
 
