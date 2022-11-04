@@ -10,6 +10,7 @@
     max-height: 400px;
     min-width: 100px;
     background-color: white;
+    /* border-radius: 10px; */
 }
 .product > img {
     max-height: 200px;
